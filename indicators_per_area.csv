@@ -1,1 +1,37 @@
-
+,Name,Short,Class,Sequence,CanBeDisplayedOnMap,indicator_count
+19,Lower tier local authorities (post 4/21),Districts & UAs (from Apr 2021),ua-la-composite,2021,True,381
+18,Lower tier local authorities (4/20-3/21),Districts & UAs (2020/21),ua-la-composite,2020,True,173
+17,Lower tier local authorities (4/19 - 3/20),Districts & UAs (2019/20),ua-la-composite,2019,True,167
+20,Lower tier local authorities (pre 4/19),Districts & UAs (pre Apr 2019),ua-la-composite,2018,True,190
+34,Upper tier local authorities (post 4/21),Counties & UAs (from Apr 2021),ua-county-composite,2021,True,713
+33,Upper tier local authorities (4/20-3/21),Counties & UAs (2020/21),ua-county-composite,2020,True,460
+32,Upper tier local authorities (4/19 - 3/20),Counties & UAs (2019/20),ua-county-composite,2019,True,646
+35,Upper tier local authorities (pre 4/19),Counties & UAs (pre Apr 2019),ua-county-composite,2018,True,752
+31,Sustainability and Transformation Footprints,STPs (from Apr 2020),stp-composite,2020,True,130
+28,STP (120 +218),STPs (pre Apr 2020),stp-composite,2019,True,149
+26,Parliamentary Constituency 2022-12-31,Constituencies,parl-constituency,0,False,6
+14,"ICBs, former STPs",ICBs,null,2022,True,219
+30,"Sub-ICB, former CCGs",ICB sub-locations,null,2022,True,246
+0,Acute Trusts (incl.combined MH+Acute),Acute Trusts,null,0,False,84
+1,Ambulance Trust,Ambulance Trust,null,0,False,1
+7,Combined authorities,Combined authorities,null,0,False,36
+8,"E39, former sub-region, former Local area teams",NHS region - local office,null,0,True,2
+9,Electoral Best Fit Wards,Electoral Wards,null,0,True,63
+10,England,England,null,0,False,1650
+11,General Practice,GPs,null,0,True,256
+12,Government Office Region,Region,null,0,True,560
+13,IAPT services,IAPT services,null,0,False,44
+15,Laboratory,Laboratory,null,0,False,2
+16,Local Maternity System,Local Maternity System,null,0,False,11
+21,Mental Health Trusts (incl.combined MH+Acute),Mental Health Trust,null,0,False,24
+22,Middle Super Output Area,MSOA,null,0,True,57
+23,NHS regions (43 + 44),NHS regions (pre ICB),null,0,True,4
+24,NHS regions (44 + 45),NHS regions (since ICB setup),null,0,False,42
+25,PHEC 2015 new plus PHEC 2013 unchanged,PHE Centres (2015),null,0,True,131
+27,Primary Care Network (v. 29/10/22),PCNs (v. 28/10/22),null,0,False,189
+29,Strategic Clinical Network,Strategic Clinical Network,null,0,True,14
+6,CCGs (2021/22),CCGs (from Apr 2021),ccg-composite,2021,True,497
+5,CCGs (2020/21),CCGs (2020/21),ccg-composite,2020,True,414
+4,CCGs (2019/20),CCGs (2019/20),ccg-composite,2019,True,259
+3,CCGs (2018/19),CCGs (2018/19),ccg-composite,2018,True,231
+2,CCGs (2017/18),CCGs (2017/18),ccg-composite,2017,True,107
