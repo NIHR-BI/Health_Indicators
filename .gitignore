@@ -3,6 +3,7 @@
 *.xlsx
 *.xls
 *.dat
+*.ods
 
 # Mac folder
 .DS_Store
