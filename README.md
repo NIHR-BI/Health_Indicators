@@ -17,8 +17,6 @@ data_for_multiple_ind_ids_for_one_area = ftp.retrieve_data.get_data_by_indicator
                                                     area_type_id=area_type_id, # can be found in the documentation
                                                     include_sortable_time_periods=True, # includes an int format column for time period
                                                     is_test=False)
-    
-    return data
 ```
 
 - ids_as_str must be in the format of the id numbers separated by %2C which is the character representation for a comma. e.g. 1204%2C1210%2C20401 is for the ids 1204, 1210 and 20401.
