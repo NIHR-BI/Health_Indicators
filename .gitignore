@@ -8,6 +8,8 @@
 # Mac folder
 .DS_Store
 
+# values folder
+values/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
