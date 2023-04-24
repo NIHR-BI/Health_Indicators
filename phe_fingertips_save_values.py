@@ -58,4 +58,4 @@ def save_all_values(str_date):
     for i in unique_area_type_ids:
         save_values(str_date, i)
 
-save_all_values('2023-04-24')
+# save_all_values('2023-04-24')
