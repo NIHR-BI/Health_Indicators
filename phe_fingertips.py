@@ -43,7 +43,7 @@ def save_all():
     save_indicator_ref()
     save_area_hierarchy()
     
-save_all()
+# save_all()
 
 
 
@@ -94,7 +94,7 @@ def save_one_areatypeid_for_indicatorid(date):
                                                 find_first_combo(indicatorid_at_areatypeid_with_hierarchy, 'right')]
     )
                                                
-    one_areatypeid_for_indicatorid.to_csv('one_areatypeid_for_indicatorid.csv', index=False)
+    one_areatypeid_for_indicatorid.to_csv(date + '_one_areatypeid_for_indicatorid.csv', index=False)
     
     print('one_areatypeid_for_indicatorid.csv successfully saved')
     
