@@ -61,3 +61,25 @@ def save_all_values(str_date):
     print('save_all_values function successfully complete')
 
 # save_all_values('2023-04-24')
+
+
+def save_values_choose_areas(str_date, areaids:list):   
+    for i in areaids:
+        save_values(str_date, i)
+    
+    print('save_all_values function successfully complete')
+
+
+save_values_choose_areas('2023-04-24', [201,
+ 101,
+ 402,
+ 302,
+ 202,
+ 102])
+
+
+combos = load_combos('2023-04-24')
+counts = combos.groupby('AreaTypeId')['IndicatorId'].count().values.tolist()
+batch_size = 100
+number_of_batches = [ceil(i/batch_size) for i in counts]
+sum(number_of_batches) # i should have this number of files
