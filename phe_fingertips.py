@@ -14,7 +14,7 @@ def save_url_as_csv(url_dtype, url, filename):
             
     today_as_str = str(date.today())
     csvname = today_as_str + '_' + filename + '.csv'
-    data.to_csv(csvname)
+    data.to_csv(csvname, index = False)
     print(csvname + ' successfully saved')
 
 def save_indicatorid_at_areatypeid():
@@ -43,4 +43,4 @@ def save_all():
     save_indicator_ref()
     save_area_hierarchy()
     
-# save_all()
+save_all()
