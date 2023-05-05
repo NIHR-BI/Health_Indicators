@@ -4,6 +4,7 @@
 *.xls
 *.dat
 *.ods
+*.json
 
 # Mac folder
 .DS_Store
