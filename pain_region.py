@@ -1,4 +1,7 @@
 import pandas as pd
+import json
+
+data = pd.read_csv('region/6.csv')
 
 # # concat all of the separate files for 6
 # file_names = ['region/6_0to99.csv',
@@ -23,8 +26,28 @@ import pandas as pd
 # # # save the file    
 # data.to_csv('region/6.csv', index=False)
 
+# # filter data to only include max time period only
+# max_time_period = pd.DataFrame(data.groupby(['Indicator ID', 'Sex', 'Age'])['Time period Sortable'].max()).reset_index().drop_duplicates()
 
-data = pd.read_csv('region/6.csv')
+
+# data_max_time = pd.merge(left=max_time_period,
+#          right=data,
+#          how='inner')
+
+# data_max_time.to_csv('region/6.csv', index=False)
+
+# len(data_max_time)
+# len(data)
 
 
-data
+# # number of sex values for indicators
+# data.loc[:,['Indicator ID', 'Sex']].groupby('Indicator ID').nunique()
+# # number of age values for indicators
+# data.loc[:,['Indicator ID', 'Age']].groupby('Indicator ID').nunique().describe()
+
+
+# # shape file
+# shape_file_name = 'region/9_region_shapes.json'
+# with open(shape_file_name, 'r') as contents:
+#     shape_json = json.loads(contents)
+# shape_json
