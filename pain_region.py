@@ -1,7 +1,44 @@
 import pandas as pd
 import json
+import fingertips_py as ftp
+from math import ceil
+
+
+
+
 
 data = pd.read_csv('region/6.csv')
+
+def get_data_batches(indicator_list, area_type_id, batch_size, folder_name):
+    replace_comma = '%2C'
+
+    batch_size = 100
+    number_of_batches = ceil(len(indicator_list)/batch_size)
+    
+        # max 100 indicators can be retrieved at once so need to do this in batches
+    for i in range(number_of_batches):
+        start_index = i*batch_size
+        end_index = (i+1)*batch_size
+        batch_indicator_list = indicator_list[start_index: end_index]
+        
+        ids_as_str = replace_comma.join([str(i) for i in batch_indicator_list])
+        
+        values = ftp.retrieve_data.get_data_by_indicator_ids(indicator_ids=ids_as_str, # [Maximum 100]
+                                                        area_type_id=area_type_id,
+                                                        # parent_area_type_id=15,
+                                                        # profile_id=None,
+                                                        include_sortable_time_periods=True,
+                                                        is_test=False)
+        
+        filename = (folder_name + '/' +
+                    str(area_type_id) + '_' +
+                    str(start_index) + 'to' +
+                    str(end_index-1) + '.csv'
+        )
+        
+        values.to_csv(filename, index=False)
+        
+        print(filename + ' successfully saved')
 
 # # concat all of the separate files for 6
 # file_names = ['region/6_0to99.csv',
@@ -72,3 +109,7 @@ pd.merge(left = pain_ind_area.pivot_table(values='IndicatorId',
          ,right = area_ref
          ,right_on = 'Id'
          ).sort_values('IndicatorId', ascending=False)
+
+
+# use func to save data
+get_data_batches(ids, 302, 100, 'region')
