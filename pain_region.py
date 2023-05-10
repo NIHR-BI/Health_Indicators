@@ -3,10 +3,6 @@ import json
 import fingertips_py as ftp
 from math import ceil
 
-
-
-
-
 data = pd.read_csv('region/6.csv')
 
 def get_data_batches(indicator_list, area_type_id, batch_size, folder_name):
@@ -56,22 +52,20 @@ def get_data_batches(indicator_list, area_type_id, batch_size, folder_name):
 # # save the file    
 # data.to_csv('region/6.csv', index=False)
 
+# file_name = 'region/302_0to99.csv'
 
 # # drop england
-# data = pd.read_csv('region/6.csv')
+# data = pd.read_csv(file_name)
 # data = data.loc[data['Area Name']!='England']
 # # # save the file    
-# data.to_csv('region/6.csv', index=False)
+# data.to_csv(file_name, index=False)
 
 # # filter data to only include max time period only
 # max_time_period = pd.DataFrame(data.groupby(['Indicator ID', 'Sex', 'Age'])['Time period Sortable'].max()).reset_index().drop_duplicates()
-
-
 # data_max_time = pd.merge(left=max_time_period,
 #          right=data,
 #          how='inner')
-
-# data_max_time.to_csv('region/6.csv', index=False)
+# data_max_time.to_csv(file_name, index=False)
 
 # len(data_max_time)
 # len(data)
@@ -90,26 +84,26 @@ def get_data_batches(indicator_list, area_type_id, batch_size, folder_name):
 # shape_json
 
 
-# retrieve value data are different areas
-raw_available_indicator_at_area = pd.read_json('https://fingertips.phe.org.uk/api/available_data').fillna(value='null')
-area_ref = pd.read_json('https://fingertips.phe.org.uk/api/area_types').fillna(value='null')
+# # retrieve value data are different areas
+# raw_available_indicator_at_area = pd.read_json('https://fingertips.phe.org.uk/api/available_data').fillna(value='null')
+# area_ref = pd.read_json('https://fingertips.phe.org.uk/api/area_types').fillna(value='null')
 
-ids = [90285,90812,90284,90832,92758,93114,93219,93224,93372,342,384,93086,93090,93375]
-ids = (raw_available_indicator_at_area.loc[(raw_available_indicator_at_area['IndicatorId'].isin(ids))
-                                          & (raw_available_indicator_at_area['AreaTypeId']==6)]
-       ['IndicatorId'].values
-       )
+# ids = [90285,90812,90284,90832,92758,93114,93219,93224,93372,342,384,93086,93090,93375]
+# ids = (raw_available_indicator_at_area.loc[(raw_available_indicator_at_area['IndicatorId'].isin(ids))
+#                                           & (raw_available_indicator_at_area['AreaTypeId']==6)]
+#        ['IndicatorId'].values
+#        )
 
-pain_ind_area = raw_available_indicator_at_area.loc[(raw_available_indicator_at_area['IndicatorId'].isin(ids))]
+# pain_ind_area = raw_available_indicator_at_area.loc[(raw_available_indicator_at_area['IndicatorId'].isin(ids))]
 
-pd.merge(left = pain_ind_area.pivot_table(values='IndicatorId',
-                          index='AreaTypeId',
-                          aggfunc='count')
-         ,left_on = 'AreaTypeId'
-         ,right = area_ref
-         ,right_on = 'Id'
-         ).sort_values('IndicatorId', ascending=False)
+# pd.merge(left = pain_ind_area.pivot_table(values='IndicatorId',
+#                           index='AreaTypeId',
+#                           aggfunc='count')
+#          ,left_on = 'AreaTypeId'
+#          ,right = area_ref
+#          ,right_on = 'Id'
+#          ).sort_values('IndicatorId', ascending=False)
 
 
-# use func to save data
-get_data_batches(ids, 302, 100, 'region')
+# # use func to save data
+# get_data_batches(ids, 302, 100, 'region')
