@@ -51,3 +51,24 @@ data = pd.read_csv('region/6.csv')
 # with open(shape_file_name, 'r') as contents:
 #     shape_json = json.loads(contents)
 # shape_json
+
+
+# retrieve value data are different areas
+raw_available_indicator_at_area = pd.read_json('https://fingertips.phe.org.uk/api/available_data').fillna(value='null')
+area_ref = pd.read_json('https://fingertips.phe.org.uk/api/area_types').fillna(value='null')
+
+ids = [90285,90812,90284,90832,92758,93114,93219,93224,93372,342,384,93086,93090,93375]
+ids = (raw_available_indicator_at_area.loc[(raw_available_indicator_at_area['IndicatorId'].isin(ids))
+                                          & (raw_available_indicator_at_area['AreaTypeId']==6)]
+       ['IndicatorId'].values
+       )
+
+pain_ind_area = raw_available_indicator_at_area.loc[(raw_available_indicator_at_area['IndicatorId'].isin(ids))]
+
+pd.merge(left = pain_ind_area.pivot_table(values='IndicatorId',
+                          index='AreaTypeId',
+                          aggfunc='count')
+         ,left_on = 'AreaTypeId'
+         ,right = area_ref
+         ,right_on = 'Id'
+         ).sort_values('IndicatorId', ascending=False)
