@@ -3,7 +3,8 @@ import json
 import fingertips_py as ftp
 from math import ceil
 
-data = pd.read_csv('region/6.csv')
+data = pd.read_csv('region/302_0to99.csv')
+utla_to_region = pd.read_csv('region/Upper_Tier_Local_Authority_to_Region_(December_2020)_Lookup_in_England.csv')
 
 def get_data_batches(indicator_list, area_type_id, batch_size, folder_name):
     replace_comma = '%2C'
@@ -107,3 +108,23 @@ def get_data_batches(indicator_list, area_type_id, batch_size, folder_name):
 
 # # use func to save data
 # get_data_batches(ids, 302, 100, 'region')
+
+
+## calculations for each region based on inner utlas
+data['indicator_region_dataset_id'] = (data.loc[:,["Indicator ID", "Time period Sortable", "Sex", "Age"]].apply(lambda x: '_'.join(x.astype(str).values.tolist()), axis=1) + '_6')
+
+utla_to_region = utla_to_region.loc[:,['UTLA20CD', 'RGN20CD']]
+print(data.columns, utla_to_region.columns)
+
+region_utla_calcs = pd.merge(left=data,
+                             right=utla_to_region,
+                             left_on='Area Code',
+                             right_on='UTLA20CD',
+                             how='left',
+                             indicator=True)
+
+region_utla_calcs.groupby('_merge')['Area Code'].count()
+
+region_utla_calcs.pivot_table(values='Value',
+                              index=['indicator_region_dataset_id', 'RGN20CD'],
+                              aggfunc='min')
