@@ -125,6 +125,64 @@ region_utla_calcs = pd.merge(left=data,
 
 region_utla_calcs.groupby('_merge')['Area Code'].count()
 
-region_utla_calcs.pivot_table(values='Value',
-                              index=['indicator_region_dataset_id', 'RGN20CD'],
-                              aggfunc='min')
+def calc_utla_for_regions(calc_method):
+    if calc_method == 'min' or calc_method == 'max':
+        df = (region_utla_calcs.pivot_table(values='Value',
+                                    index=['indicator_region_dataset_id', 'RGN20CD'],
+                                    aggfunc=calc_method
+                                    )
+              .rename({'Value': 'utla_value_' + calc_method}, axis=1)
+              )
+
+    if calc_method == 'range':
+        df = (pd.DataFrame(region_utla_calcs
+              .groupby(['indicator_region_dataset_id', 'RGN20CD'])
+              .apply(lambda x: x['Value'].max() - x['Value'].min())
+                                    )
+              .rename({0: 'utla_value_' + calc_method}, axis=1)
+              )
+        
+    df['utla_value_' + calc_method + '_rank'] = (df.groupby(['indicator_region_dataset_id'])
+                                                 .rank(axis=0, method='min', na_option='keep', ascending=False)
+                                                 )
+    df.index = df.index.rename(['indicator_dataset_id','Area Code'])
+    return df
+
+utla_summary_for_regions = pd.DataFrame()
+for i in ['range', 'min', 'max']:
+    utla_summary_for_regions = pd.concat([utla_summary_for_regions,
+                                        calc_utla_for_regions(i)],
+                                         axis=1
+    )
+
+utla_summary_for_regions.reset_index()
+
+# utla_summary_for_regions.to_csv('region/utla_summary_for_regions.csv')
+
+region = pd.read_csv('region/6.csv')
+utla_summary_for_regions = pd.read_csv('region/utla_summary_for_regions.csv')
+data = pd.merge(left=region, right=utla_summary_for_regions, on=['indicator_dataset_id', 'Area Code'])
+
+# data.to_csv('region/6.csv', index=False)
+
+
+## standardise indicators minmaxscaler
+from sklearn.preprocessing import MinMaxScaler
+import numpy as np
+
+def scale(X):
+    X_ = np.atleast_2d(X)
+    scaler=MinMaxScaler()
+    return pd.DataFrame(scaler.fit_transform(X_), X.index)
+cols = 'Value'
+data[cols + '_scale'] = (data.groupby(['indicator_dataset_id','Area Code'])
+                         [cols].apply(scale))
+
+data
+
+(data.groupby(['indicator_dataset_id','Area Code'])
+                         [cols].apply(scale))
+
+data.loc[:,, 'Value']].dropna().groupby(['indicator_dataset_id','Area Code']).apply(lambda x: (x['Value']-x['Value'].min())/(x['Value'].max() - x['Value'].min()))
+
+data.groupby(['indicator_dataset_id','Area Code']).apply(lambda x: (x['Value'].max()-x['Value'].min()))
