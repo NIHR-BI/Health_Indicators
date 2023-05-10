@@ -70,16 +70,16 @@ def save_values_choose_areas(str_date, areaids:list):
     print('save_all_values function successfully complete')
 
 
-save_values_choose_areas('2023-04-24', [201,
- 101,
- 402,
- 302,
- 202,
- 102])
+# save_values_choose_areas('2023-04-24', [201,
+#  101,
+#  402,
+#  302,
+#  202,
+#  102])
 
 
-combos = load_combos('2023-04-24')
-counts = combos.groupby('AreaTypeId')['IndicatorId'].count().values.tolist()
-batch_size = 100
-number_of_batches = [ceil(i/batch_size) for i in counts]
-sum(number_of_batches) # i should have this number of files
+# combos = load_combos('2023-04-24')
+# counts = combos.groupby('AreaTypeId')['IndicatorId'].count().values.tolist()
+# batch_size = 100
+# number_of_batches = [ceil(i/batch_size) for i in counts]
+# sum(number_of_batches) # i should have this number of files
