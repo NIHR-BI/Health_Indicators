@@ -29,6 +29,7 @@ https://www.api.gov.uk/ons/open-geography-portal/#open-geography-portal
 - An API exists for this.
 
 - A data set follows the format: 'https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/' + dataset_name + '/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'. e.g. https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Clinical_Commissioning_Groups_April_2019_Boundaries_EN_BUC_2022/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson
+(Note - sometimes the FeatureServer is MapServer)
 
 
 - dataset_names can be found on this directory: https://services1.arcgis.com/ESMARspQHYMw9BZ9/ArcGIS/rest/services
