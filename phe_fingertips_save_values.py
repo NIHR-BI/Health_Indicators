@@ -2,6 +2,7 @@ from datetime import date
 import fingertips_py as ftp
 from json import loads
 from math import ceil
+from os import listdir
 import pandas as pd
 from urllib.request import urlopen
 
@@ -83,3 +84,16 @@ def save_values_choose_areas(str_date, areaids:list):
 # batch_size = 100
 # number_of_batches = [ceil(i/batch_size) for i in counts]
 # sum(number_of_batches) # i should have this number of files
+
+def concat_files_in_folder_and_save(folder, save_as_fname):    
+    file_names = listdir(folder)
+    appended_data = pd.DataFrame()
+    for i in file_names:
+        filepath = folder + '/' + i
+        data = pd.read_csv(filepath)
+        appended_data = pd.concat([appended_data, data])
+    appended_data.to_csv(save_as_fname + '.csv', index=False)
+    
+    print(save_as_fname  + '.csv ' + ' has successfully saved')
+    
+# concat_files_in_folder_and_save('values', '2023-04-24_values_appended')
