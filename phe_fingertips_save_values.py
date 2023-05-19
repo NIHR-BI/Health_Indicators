@@ -1,6 +1,7 @@
 from datetime import date
 import fingertips_py as ftp
 from json import loads
+import numpy as np
 from math import ceil
 from os import listdir
 import pandas as pd
@@ -87,6 +88,8 @@ def save_values_choose_areas(str_date, areaids:list):
 
 def concat_files_in_folder_and_save(folder, save_as_fname):    
     file_names = listdir(folder)
+    print(len(file_names))
+    return
     appended_data = pd.DataFrame()
     for i in file_names:
         filepath = folder + '/' + i
@@ -95,5 +98,43 @@ def concat_files_in_folder_and_save(folder, save_as_fname):
     appended_data.to_csv(save_as_fname + '.csv', index=False)
     
     print(save_as_fname  + '.csv ' + ' has successfully saved')
-    
-# concat_files_in_folder_and_save('values', '2023-04-24_values_appended')
+
+
+concat_files_in_folder_and_save('values', '2023-04-24_values_appended')
+
+data = pd.read_csv('2023-04-24_values_appended.csv')
+
+area_ref = pd.read_csv('2023-04-24_area_hierarchy.csv')
+map1 = area_ref.loc[:, ['AreaTypeId', 'Short']].set_index('AreaTypeId').loc[:, 'Short'].to_dict()
+map2 = {v: k for k, v in map1.items()}
+# map2['England'] = np.nan
+map2['Districts & UAs (2021/22-2022/23)'] = 401
+map2['Counties & UAs (2021/22-2022/23)'] = 402
+
+data.shape
+
+data['area_type_id'] = data['Area Type'].replace(map2)
+data['area_type_id'].unique()
+
+data['indicator_dataset_id'] = data['Indicator ID'].astype(str) + '_' + data['Time period Sortable'].astype(str) + '_' + data['Sex'].astype(str) + '_' + data['Age'].astype(str) + '_' + data['area_type_id'].astype(str)
+
+4014688 * 27 / (400000)
+
+#5,000,000 cells, with a maximum of 256 columns per sheet. Uploaded spreadsheet files that are converted to the Google spreadsheets format can't be larger than 20 MB, and need to be under 400,000 cells and 256 columns per sheet. Check out our detailed spreadsheet size limits tip.
+data['indicator_dataset_id'].unique()[0:5]
+
+data.columns
+
+['Area Code',
+ 'Area Name',
+ 
+ 'Indicator ID', 'Indicator Name', 'Parent Code', 'Parent Name',
+       ,  'Area Type', 'Sex', 'Age', 'Category Type',
+       'Category', 'Time period', 'Value', 'Lower CI 95.0 limit',
+       'Upper CI 95.0 limit', 'Lower CI 99.8 limit', 'Upper CI 99.8 limit',
+       'Count', 'Denominator', 'Value note', 'Recent Trend',
+       'Compared to England value or percentiles', 'Compared to percentiles',
+       , 'New data', 'Compared to goal',
+       'Time period range']
+
+data['Area Type'].unique()
