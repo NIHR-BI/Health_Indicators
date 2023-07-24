@@ -46,6 +46,8 @@ def save_values(str_date, area_type_id:int):
                                                         include_sortable_time_periods=True,
                                                         is_test=False)
         
+        values['Dataset Downloaded Date'] = today_as_str
+        
         filename = (str_date + '_values/' + today_as_str + '_' +
                     str(area_type_id) + '_' +
                     str(start_index) + 'to' +
