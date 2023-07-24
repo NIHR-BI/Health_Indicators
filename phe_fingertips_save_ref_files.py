@@ -33,7 +33,7 @@ def save_indicator_ref():
     save_url_as_csv('csv', url, filename)
         
 def save_area_hierarchy():
-    url = 'https://docs.google.com/spreadsheets/u/0/d/15RhWWsHPPMLWoxR5sJcpK-vraRkidRY8jsAb_Y_5GwI/gviz/tq?tqx=out:csv&tq&gid=963757659&headers=1'
+    url = 'https://docs.google.com/spreadsheets/u/0/d/1yWPMu8cHllEdVl0kuUjjJR5V8yVrnU4jZTIlM1a1XGg/gviz/tq?tqx=out:csv&tq&gid=963757659&headers=1'
     filename = 'area_hierarchy'
     save_url_as_csv('csv', url, filename)
     
@@ -43,7 +43,7 @@ def save_all():
     save_indicator_ref()
     save_area_hierarchy()
     
-# save_all()
+save_all()
 
 
 
