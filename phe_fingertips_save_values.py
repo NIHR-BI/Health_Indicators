@@ -57,7 +57,7 @@ def save_values(str_date, area_type_id:int):
         print(filename + ' successfully saved')
 
 
-def save_all_values(str_date):
+def save_values_for_all_ind_area_combos(str_date):
     '''run through all of the area types and repeatedly save all of the
     indicator values in batches'''
     combos = load_combos(str_date)
@@ -66,7 +66,7 @@ def save_all_values(str_date):
     for i in unique_area_type_ids:
         save_values(str_date, i)
     
-    print('save_all_values function successfully complete')
+    print('save_values_for_all_ind_area_combos function successfully complete')
 
 
 def save_values_choose_areas(str_date, areaids:list):   
