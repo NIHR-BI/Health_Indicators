@@ -8,21 +8,21 @@ import pandas as pd
 from urllib.request import urlopen
 
 
-# load the combos from the ref files
 def load_combos(str_date:str):
+    '''load the combos from the ref files'''
     filename = str_date + '_' + 'one_areatypeid_for_indicatorid.csv'
     data = pd.read_csv(filename)
     return data
 
 
-# return a list of indicator ids for an area type selected
 def return_ind_list_for_area_type(combos, AreaTypeId):
+    '''return a list of indicator ids for an area type selected'''
     return combos[combos['AreaTypeId']==AreaTypeId]['IndicatorId'].values
 
 
-# save the values of all of the indicators for a chosen area type
-# in batches of 100 due to the api limit
 def save_values(str_date, area_type_id:int):
+    '''save the values of all of the indicators for a chosen area type
+    in batches of 100 due to the api limit'''
     combos = load_combos(str_date)
     replace_comma = '%2C'
     today_as_str = str(date.today())
@@ -57,8 +57,9 @@ def save_values(str_date, area_type_id:int):
         print(filename + ' successfully saved')
 
 
-# run through all of the area types and repeatedly save all of the indicator values in batches
 def save_all_values(str_date):
+    '''run through all of the area types and repeatedly save all of the
+    indicator values in batches'''
     combos = load_combos(str_date)
     unique_area_type_ids = combos['AreaTypeId'].unique().tolist()
     
@@ -67,76 +68,11 @@ def save_all_values(str_date):
     
     print('save_all_values function successfully complete')
 
-# save_all_values('2023-04-24')
-
 
 def save_values_choose_areas(str_date, areaids:list):   
+    '''save values for chosen areas'''
     for i in areaids:
         save_values(str_date, i)
     
     print('save_all_values function successfully complete')
-
-
-def concat_files_in_folder_and_save(folder, save_as_fname):    
-    file_names = listdir(folder)
-    print(len(file_names))
-    return
-    appended_data = pd.DataFrame()
-    for i in file_names:
-        filepath = folder + '/' + i
-        data = pd.read_csv(filepath)
-        appended_data = pd.concat([appended_data, data])
-    appended_data.to_csv(save_as_fname + '.csv', index=False)
     
-    print(save_as_fname  + '.csv ' + ' has successfully saved')
-
-
-# concat_files_in_folder_and_save('values', '2023-04-24_values_appended')
-
-data = pd.read_csv('2023-04-24_values_appended.csv')
-
-area_ref = pd.read_csv('2023-04-24_area_hierarchy.csv')
-map1 = area_ref.loc[:, ['AreaTypeId', 'Short']].set_index('AreaTypeId').loc[:, 'Short'].to_dict()
-map2 = {v: k for k, v in map1.items()}
-map2['England'] = 15
-map2['Districts & UAs (2021/22-2022/23)'] = 401
-map2['Counties & UAs (2021/22-2022/23)'] = 402
-
-data.shape
-
-# data['area_type_id'] = data['Area Type'].replace(map2)
-# data['area_type_id'].unique()
-
-# data['indicator_dataset_id'] = data['Indicator ID'].astype(str) + '_' + data['Time period Sortable'].astype(str) + '_' + data['Sex'].astype(str) + '_' + data['Age'].astype(str) + '_' + data['area_type_id'].astype(int).astype(str)
-
-4014688 * 27 / (400000)
-
-#5,000,000 cells, with a maximum of 256 columns per sheet. Uploaded spreadsheet files that are converted to the Google spreadsheets format can't be larger than 20 MB, and need to be under 400,000 cells and 256 columns per sheet. Check out our detailed spreadsheet size limits tip.
-data['indicator_dataset_id'].unique()[0:5]
-data['area_type_id'].unique()
-
-data_subset = data.loc[:,['Area Code',
- 'Area Name',
- 'area_type_id',
- 'indicator_dataset_id',
- 'Value',
- 'Count',
- 'Denominator',
- 'Value note']]
-
-data_subset.shape
-
-def save_one():
-    one_for_each_area_id = pd.DataFrame()
-    for i in map1.keys():
-        print(i)
-        x = data_subset.loc[data_subset['area_type_id']==int(i)].iloc[0:10]
-        print(x)
-        one_for_each_area_id = pd.concat([one_for_each_area_id,
-                                        x])
-    
-    one_for_each_area_id.to_csv('2023-05-19_one_for_each_area_id.csv', index=False)
-    
-save_one()
-
-data_subset.loc[data_subset['area_type_id']==6].loc[0:10]
