@@ -1,11 +1,8 @@
 from datetime import date
 import fingertips_py as ftp
-from json import loads
-import numpy as np
 from math import ceil
-from os import listdir
+from os import mkdir
 import pandas as pd
-from urllib.request import urlopen
 
 
 def load_combos(str_date:str):
@@ -20,6 +17,13 @@ def return_ind_list_for_area_type(combos, AreaTypeId):
     return combos[combos['AreaTypeId']==AreaTypeId]['IndicatorId'].values
 
 
+def create_folder(str_date, folder_name):
+    '''create a folder named str_date_folder_name'''
+    dir_name = str_date+'_'+folder_name
+    mkdir(dir_name)
+    print(dir_name + ' created successfully')
+    
+
 def save_values(str_date, area_type_id:int):
     '''save the values of all of the indicators for a chosen area type
     in batches of 100 due to the api limit'''
@@ -30,6 +34,8 @@ def save_values(str_date, area_type_id:int):
     indicator_list = return_ind_list_for_area_type(combos, area_type_id)
     batch_size = 100
     number_of_batches = ceil(len(indicator_list)/batch_size)
+    
+    create_folder(str_date, 'values')
     
     # max 100 indicators can be retrieved at once so need to do this in batches
     for i in range(number_of_batches):
