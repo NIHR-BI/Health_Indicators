@@ -52,7 +52,7 @@ def save_values(str_date:str, area_type_id:int, folder_name:str):
         
         values['Dataset Downloaded Date'] = today_as_str
         
-        filename = (folder_name + today_as_str + '_' +
+        filename = (folder_name + '/' + today_as_str + '_' +
                     str(area_type_id) + '_' +
                     str(start_index) + 'to' +
                     str(end_index-1) + '.csv'
