@@ -8,16 +8,20 @@ import pandas as pd
 from urllib.request import urlopen
 
 
+# load the combos from the ref files
 def load_combos(str_date:str):
     filename = str_date + '_' + 'one_areatypeid_for_indicatorid.csv'
     data = pd.read_csv(filename)
     return data
 
 
+# return a list of indicator ids for an area type selected
 def return_ind_list_for_area_type(combos, AreaTypeId):
     return combos[combos['AreaTypeId']==AreaTypeId]['IndicatorId'].values
 
 
+# save the values of all of the indicators for a chosen area type
+# in batches of 100 due to the api limit
 def save_values(str_date, area_type_id:int):
     combos = load_combos(str_date)
     replace_comma = '%2C'
@@ -53,6 +57,7 @@ def save_values(str_date, area_type_id:int):
         print(filename + ' successfully saved')
 
 
+# run through all of the area types and repeatedly save all of the indicator values in batches
 def save_all_values(str_date):
     combos = load_combos(str_date)
     unique_area_type_ids = combos['AreaTypeId'].unique().tolist()
@@ -71,20 +76,6 @@ def save_values_choose_areas(str_date, areaids:list):
     
     print('save_all_values function successfully complete')
 
-
-# save_values_choose_areas('2023-04-24', [201,
-#  101,
-#  402,
-#  302,
-#  202,
-#  102])
-
-
-# combos = load_combos('2023-04-24')
-# counts = combos.groupby('AreaTypeId')['IndicatorId'].count().values.tolist()
-# batch_size = 100
-# number_of_batches = [ceil(i/batch_size) for i in counts]
-# sum(number_of_batches) # i should have this number of files
 
 def concat_files_in_folder_and_save(folder, save_as_fname):    
     file_names = listdir(folder)
