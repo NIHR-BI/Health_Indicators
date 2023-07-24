@@ -46,7 +46,7 @@ def save_values(str_date, area_type_id:int):
                                                         include_sortable_time_periods=True,
                                                         is_test=False)
         
-        filename = ('values/' + today_as_str + '_' +
+        filename = (str_date + '_values/' + today_as_str + '_' +
                     str(area_type_id) + '_' +
                     str(start_index) + 'to' +
                     str(end_index-1) + '.csv'
@@ -57,7 +57,7 @@ def save_values(str_date, area_type_id:int):
         print(filename + ' successfully saved')
 
 
-def save_values_for_all_ind_area_combos(str_date):
+def save_values_for_all_ind_area_combos(str_date:str):
     '''run through all of the area types and repeatedly save all of the
     indicator values in batches'''
     combos = load_combos(str_date)
@@ -69,7 +69,7 @@ def save_values_for_all_ind_area_combos(str_date):
     print('save_values_for_all_ind_area_combos function successfully complete')
 
 
-def save_values_choose_areas(str_date, areaids:list):   
+def save_values_choose_areas(str_date:str, areaids:list):   
     '''save values for chosen areas'''
     for i in areaids:
         save_values(str_date, i)
