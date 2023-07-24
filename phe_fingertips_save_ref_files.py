@@ -37,7 +37,7 @@ def save_area_hierarchy():
     filename = 'area_hierarchy'
     save_url_as_csv('csv', url, filename)
     
-def save_all():
+def save_all_ref_files():
     save_indicatorid_at_areatypeid()
     save_areatypeid_ref()
     save_indicator_ref()
