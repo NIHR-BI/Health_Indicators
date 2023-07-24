@@ -24,4 +24,7 @@ concat_files_in_folder_and_save(folder=values_folder_name, save_as_fname=concat_
 
 
 # step 4
-## clean concat file
+## clean concat values file
+# check if the files for non-15 area types include England(15) on rows and remove these?...
+# 1 - create values table - area_code = Area Code + _ + area_type_id
+# area_name = Area Name 
