@@ -10,7 +10,7 @@ from urllib.request import urlopen
 
 def load_combos(str_date:str):
     '''load the combos from the ref files'''
-    filename = str_date + '_' + 'one_areatypeid_for_indicatorid.csv'
+    filename = str_date + '_' + 'indicatorid_at_areatypeid.csv'
     data = pd.read_csv(filename)
     return data
 
