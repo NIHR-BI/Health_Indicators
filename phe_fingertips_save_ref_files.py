@@ -42,8 +42,6 @@ def save_all():
     save_areatypeid_ref()
     save_indicator_ref()
     save_area_hierarchy()
-    
-save_all()
 
 
 
