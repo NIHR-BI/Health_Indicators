@@ -5,7 +5,6 @@ import pandas as pd
 def concat_files_in_folder_and_save(str_date:str):    
     values_folder_name = str_date+'_values'
     file_names = listdir(values_folder_name)
-    print(len(file_names))
     
     appended_data = pd.DataFrame()
     for i in file_names:
