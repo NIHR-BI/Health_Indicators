@@ -13,6 +13,7 @@ def save_url_as_csv(url_dtype, url, filename):
         raise Exception("url_dtype: json or csv")
             
     today_as_str = str(date.today())
+    data['Indicator Information Downloaded Date'] = today_as_str
     csvname = today_as_str + '_' + filename + '.csv'
     data.to_csv(csvname, index = False)
     print(csvname + ' successfully saved')
