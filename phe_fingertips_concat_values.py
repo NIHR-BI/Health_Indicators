@@ -3,8 +3,8 @@ from os import listdir
 import pandas as pd
 
 
-def concat_files_in_folder_and_save(str_date:str, values_download_date:str):    
-    values_folder_name = str_date+'_values'
+def concat_files_in_folder_and_save(ref_files_date:str, values_download_date:str):    
+    values_folder_name = ref_files_date+'_values'
     file_names = listdir(values_folder_name)
     
     appended_data = pd.DataFrame()
