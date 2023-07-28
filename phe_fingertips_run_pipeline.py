@@ -3,6 +3,7 @@ import pandas as pd
 from phe_fingertips_save_ref_files import save_all_ref_files
 from phe_fingertips_save_values import save_values_choose_areas
 from phe_fingertips_concat_values import concat_files_in_folder_and_save
+from phe_fingertips_create_valuescsv_and_dataset_refcsv import save_dataset_ref_values_csvs
 
 
 ref_files_date = '2023-07-24'
@@ -28,12 +29,12 @@ save_values_choose_areas(ref_files_date=ref_files_date, areaids=[101, 402, 302, 
 
 
 # step 3
-# concat
+# save concat csv of all of the values files together
 concat_files_in_folder_and_save(ref_files_date=ref_files_date, values_download_date=values_download_date)
 
 
 # step 4
-# clean concat values file
-# check if the files for non-15 area types include England(15) on rows and remove these?...
-# 1 - create values table - area_code = Area Code + _ + area_type_id
-area_name = Area Name 
+# save dataset_ref.csv and values.csv
+save_dataset_ref_values_csvs(ref_files_date=ref_files_date,
+                             values_download_date=values_download_date,
+                             remove_england=True)
