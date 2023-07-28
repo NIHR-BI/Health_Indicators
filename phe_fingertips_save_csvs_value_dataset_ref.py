@@ -36,8 +36,8 @@ def replace_nulls_with_val(dataframe:pd.DataFrame(), col:str, null_val, replace_
 
 def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, remove_england:bool):
     values_folder_name = ref_files_date+'_values'
-    # filepath = values_folder_name + '/' + values_download_date + '_values_concatenated.csv'
-    filepath = values_folder_name + '/' + values_download_date + '_102_700to799.csv'
+    filepath = values_folder_name + '/' + values_download_date + '_values_concatenated.csv'
+    # filepath = values_folder_name + '/' + values_download_date + '_102_700to799.csv'
     data = pd.read_csv(filepath)
     
     # remove england
@@ -76,10 +76,9 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     values.to_csv(ref_files_date + '_values.csv', index=False)
     print(ref_files_date + '_values.csv successfully saved')
 
-    return data, dataset_ref, values
+    # return data, dataset_ref, values
 
-a.head()
 
-a,b,c = save_dataset_ref_values_csvs(ref_files_date='2023-07-24',
-                                     values_download_date='2023-07-28',
-                                     remove_england=True)
+# a,b,c = save_dataset_ref_values_csvs(ref_files_date='2023-07-24',
+#                                      values_download_date='2023-07-28',
+#                                      remove_england=True)
