@@ -43,7 +43,8 @@ def save_area_type_ref_csv(ref_files_date):
     
     area_type_ref = area_type_ref.rename(columns=col_dict)
     
-    area_type_ref.to_csv(ref_files_date + '_area_type_ref.csv')
+    area_type_ref.to_csv(ref_files_date + '_area_type_ref.csv', index=False)
+    print(ref_files_date + '_area_type_ref.csv successfully saved')
     
     # return area_type_ref
 
