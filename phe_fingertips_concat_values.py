@@ -2,15 +2,18 @@ from os import listdir
 import pandas as pd
 
 
-def concat_files_in_folder_and_save(folder, save_as_fname):    
-    file_names = listdir(folder)
+def concat_files_in_folder_and_save(str_date:str):    
+    values_folder_name = str_date+'_values'
+    file_names = listdir(values_folder_name)
     print(len(file_names))
     
     appended_data = pd.DataFrame()
     for i in file_names:
-        filepath = folder + '/' + i
+        filepath = values_folder_name + '/' + i
         data = pd.read_csv(filepath)
         appended_data = pd.concat([appended_data, data])
-    appended_data.to_csv(save_as_fname + '.csv', index=False)
+        
+    concat_file_path = values_folder_name + '/' + 'values_concatenated'
+    appended_data.to_csv(concat_file_path + '.csv', index=False)
     
-    print(save_as_fname  + '.csv ' + ' has successfully saved')
+    print(concat_file_path  + '.csv ' + ' has successfully saved')
