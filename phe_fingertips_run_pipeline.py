@@ -6,9 +6,6 @@ from phe_fingertips_concat_values import concat_files_in_folder_and_save
 from phe_fingertips_save_csvs_value_dataset_ref import save_dataset_ref_values_csvs
 from phe_fingertips_save_csv_area_type_ref import save_area_type_ref_csv
 
-ref_files_date = '2023-07-24'
-values_download_date = '2023-07-28'
-
 #################################
 # please note that if you run this, it can take a long time to run.
 
@@ -19,6 +16,7 @@ values_download_date = '2023-07-28'
 # save the ref files from the phe fingertips website and from google sheets
 # save_all_ref_files()
 
+ref_files_date = '2023-07-24'
 
 # # step 2
 # # save values for chosen area types
@@ -32,6 +30,7 @@ values_download_date = '2023-07-28'
 # save_values_choose_areas(ref_files_date=ref_files_date, areaids=[201], folder_name=folder_name)
 # save_values_choose_areas(ref_files_date=ref_files_date, areaids=[101, 402, 302, 202, 102], folder_name=folder_name)
 
+values_download_date = '2023-07-28'
 
 # # step 3
 # # save concat csv of all of the values files together
