@@ -9,6 +9,11 @@ from phe_fingertips_save_csv_area_type_ref import save_area_type_ref_csv
 ref_files_date = '2023-07-24'
 values_download_date = '2023-07-28'
 
+#################################
+# please note that if you run this, it can take a long time to run.
+
+# it can error at step 2 at certain area_ids where it times out. you can rerun the area_ids from where it errored.
+#################################
 
 # # step 1
 # save the ref files from the phe fingertips website and from google sheets
@@ -42,4 +47,12 @@ values_download_date = '2023-07-28'
 
 # # step 5
 # # save area_type_ref.csv
-save_area_type_ref_csv(ref_files_date)
+# save_area_type_ref_csv(ref_files_date)
+
+
+
+# steps complete! The csvs that go into the dashboard are:
+# values.csv
+# dataset_ref.csv
+# indicator_ref.csv
+# area_type_ref.csv
