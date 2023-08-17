@@ -104,7 +104,7 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     values.to_csv(ref_files_date + '_values.csv', index=False)
     print(ref_files_date + '_values.csv successfully saved')
 
-    return data, dataset_ref, values
+    # return data, dataset_ref, values
 
 
 # a,b,c = save_dataset_ref_values_csvs(ref_files_date='2023-07-24',
