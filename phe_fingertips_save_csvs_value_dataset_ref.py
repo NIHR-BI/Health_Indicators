@@ -15,6 +15,13 @@ def create_col_by_concat_cols(new_col_name:str, dataframe:pd.DataFrame(), cols:l
     return dataframe
 
 
+def create_col_with_col_plus_brackets(new_col_name:str, dataframe:pd.DataFrame(),
+                                      col_first_outisde_brackets:str,
+                                      cols_in_brackets:list):
+    dataframe[new_col_name] = dataframe.loc[:,col_first_outisde_brackets] + ' [' + concat_str_cols(dataframe, cols_in_brackets, ', ') + ']'
+    return dataframe
+
+
 def create_value_is_null_col(dataframe:pd.DataFrame()):
     dataframe['value_is_null'] = dataframe.loc[:,'Value'].isna().astype(int)
     return dataframe
@@ -46,8 +53,29 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
         
     # create area_code
     data = create_col_by_concat_cols('area_code', data, ['Area Code', 'area_type_id'], '_')
+    
     # create indicator_dataset_id
     data = create_col_by_concat_cols('indicator_dataset_id', data, ['Indicator ID', 'Time period Sortable', 'Sex', 'Age', 'area_type_id'], '_')
+    
+    # create Indicator Dataset
+    data = create_col_with_col_plus_brackets(new_col_name='Indicator Dataset', dataframe=data,
+                                      col_first_outisde_brackets='Indicator Name',
+                                      cols_in_brackets=['Age', 'Sex', 'Time period', 'Area Type'])
+    
+    # create indicator_dataset_group_id
+    data = create_col_by_concat_cols('indicator_dataset_group_id', data, ['Indicator ID', 'Time period Sortable', 'Sex', 'Age'], '_')
+    
+    # create Indicator Dataset Group
+    data = create_col_with_col_plus_brackets(new_col_name='Indicator Dataset Group', dataframe=data,
+                                      col_first_outisde_brackets='Indicator Name',
+                                      cols_in_brackets=['Age', 'Sex', 'Time period'])
+    
+    # create dataset_group_id
+    data = create_col_by_concat_cols('dataset_group_id', data, ['Age', 'Sex', 'Time period Sortable'], '_')   
+    
+    # create Dataset Group
+    data = create_col_by_concat_cols('Dataset Group', data, ['Age', 'Sex', 'Time period'], ', ')
+    
     # create value_is_null and replace nulls with null value
     data = create_value_is_null_col(data)
     data = replace_nulls_with_val(data, 'Value', np.nan, -99999)
@@ -61,7 +89,7 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     data = data.rename(columns=rename_cols_dict)
     
     # create dataset_ref.csv
-    dataset_cols = ['Dataset Downloaded Date', 'indicator_dataset_id', 'Indicator ID', 'Time Period', 'Time Period Sortable', 'Time Period Range', 'Sex', 'Age', 'area_type_id']
+    dataset_cols = ['Dataset Downloaded Date', 'indicator_dataset_id', 'Indicator ID', 'Indicator Dataset', 'indicator_dataset_group_id', 'Indicator Dataset Group', 'dataset_group_id', 'Dataset Group', 'Time Period', 'Time Period Sortable', 'Time Period Range', 'Sex', 'Age', 'area_type_id']
     dataset_cols_dict = {'area_type_id': '~area_type_id'}
     dataset_ref = data.loc[:,dataset_cols].rename(columns=dataset_cols_dict).drop_duplicates()
     
@@ -76,7 +104,7 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     values.to_csv(ref_files_date + '_values.csv', index=False)
     print(ref_files_date + '_values.csv successfully saved')
 
-    # return data, dataset_ref, values
+    return data, dataset_ref, values
 
 
 # a,b,c = save_dataset_ref_values_csvs(ref_files_date='2023-07-24',
