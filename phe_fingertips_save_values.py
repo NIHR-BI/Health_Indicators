@@ -52,7 +52,6 @@ def save_values(ref_files_date:str, area_type_id:int, folder_name:str):
         
         values['Dataset Downloaded Date'] = today_as_str
         values['area_type_id'] = area_type_id
-        values = values.rename(columns={'Value': 'value'})
         values = values.drop_duplicates()
         
         filename = (folder_name + '/' + today_as_str + '_' +
