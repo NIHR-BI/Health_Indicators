@@ -85,7 +85,8 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     rename_cols_dict = {'Time period': 'Time Period',
                         'Time period Sortable': 'Time Period Sortable',
                         'Time period range': 'Time Period Range',
-                        'Value note': 'Value Note'}
+                        'Value note': 'Value Note',
+                        'Value': 'value'}
     data = data.rename(columns=rename_cols_dict)
     
     # create dataset_ref.csv
