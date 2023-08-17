@@ -29,7 +29,7 @@ def replace_nulls_with_val(dataframe:pd.DataFrame(), col:str, null_val, replace_
 #                            'Sex', 'Age', 'area_type_id', 'Value', 'Count', 'Denominator',
 #                            'Value Note']
 
-# dataset_refcsv_required_cols = ['Dataset Downloaded Date', 'dataset_id', 'Indicator ID',
+# dataset_refcsv_required_cols = ['Dataset Downloaded Date', 'indicator_dataset_id', 'Indicator ID',
 #                                 'Time period', 'Time period Sortable', 'Time period range',
 #                                 'Sex', 'Age', 'area_type_id']
 
@@ -46,8 +46,8 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
         
     # create area_code
     data = create_col_by_concat_cols('area_code', data, ['Area Code', 'area_type_id'], '_')
-    # create dataset_id
-    data = create_col_by_concat_cols('dataset_id', data, ['Indicator ID', 'Time period Sortable', 'Sex', 'Age', 'area_type_id'], '_')
+    # create indicator_dataset_id
+    data = create_col_by_concat_cols('indicator_dataset_id', data, ['Indicator ID', 'Time period Sortable', 'Sex', 'Age', 'area_type_id'], '_')
     # create value_is_null and replace nulls with null value
     data = create_value_is_null_col(data)
     data = replace_nulls_with_val(data, 'Value', np.nan, -99999)
@@ -61,7 +61,7 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     data = data.rename(columns=rename_cols_dict)
     
     # create dataset_ref.csv
-    dataset_cols = ['Dataset Downloaded Date', 'dataset_id', 'Indicator ID', 'Time Period', 'Time Period Sortable', 'Time Period Range', 'Sex', 'Age', 'area_type_id']
+    dataset_cols = ['Dataset Downloaded Date', 'indicator_dataset_id', 'Indicator ID', 'Time Period', 'Time Period Sortable', 'Time Period Range', 'Sex', 'Age', 'area_type_id']
     dataset_cols_dict = {'area_type_id': '~area_type_id'}
     dataset_ref = data.loc[:,dataset_cols].rename(columns=dataset_cols_dict).drop_duplicates()
     
@@ -69,7 +69,7 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     print(ref_files_date + '_dataset_ref.csv successfully saved')
     
     # create values.csv
-    values_cols = ['area_code', 'Area Name', 'dataset_id', 'Value', 'Count', 'Denominator',
+    values_cols = ['area_code', 'Area Name', 'indicator_dataset_id', 'Value', 'Count', 'Denominator',
                    'value_is_null', 'Value Note']
     values = data.loc[:,values_cols]
 
