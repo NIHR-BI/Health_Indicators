@@ -12,7 +12,9 @@ def concat_files_in_folder_and_save(ref_files_date:str, values_download_date:str
         filepath = values_folder_name + '/' + i
         data = pd.read_csv(filepath)
         appended_data = pd.concat([appended_data, data])
-        
+    
+    appended_data = appended_data.drop_duplicates()
+    
     concat_file_path = values_folder_name + '/' + values_download_date + '_values_concatenated'
     appended_data.to_csv(concat_file_path + '.csv', index=False)
     
