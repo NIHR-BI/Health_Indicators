@@ -99,8 +99,13 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     
     # create values.csv
     values_cols = ['area_code', 'Area Name', 'indicator_dataset_id', 'value', 'Count', 'Denominator',
-                   'value_is_null', 'Value Note']
-    values = data.loc[:,values_cols]
+                   'value_is_null', 'Value Note', 'area_type_id', 'Time Period Sortable', 'Age', 'Sex', 'Indicator ID']
+    values_cols_dict = {'area_type_id': '~area_type_id',
+                         'Time Period Sortable': '~Time Period Sortable',
+                         'Age': '~Age',
+                         'Sex': '~Sex',
+                         'Indicator ID': '~Indicator ID'}
+    values = data.loc[:,values_cols].rename(columns=values_cols_dict).drop_duplicates()
 
     values.to_csv(ref_files_date + '_values.csv', index=False)
     print(ref_files_date + '_values.csv successfully saved')
@@ -108,6 +113,11 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     # return data, dataset_ref, values
 
 
-# a,b,c = save_dataset_ref_values_csvs(ref_files_date='2023-07-24',
-#                                      values_download_date='2023-07-28',
-#                                      remove_england=True)
+if __name__ == '__main__':
+    data, dataset_ref, values = save_dataset_ref_values_csvs(ref_files_date='2023-08-18',
+                                        values_download_date='2023-08-18',
+                                        remove_england=True)
+    
+    # print(dataset_ref.columns)
+    # print(values.columns)
+    # print(values.head())
