@@ -98,7 +98,7 @@ def save_dataset_ref_values_csvs(ref_files_date:str, values_download_date:str, r
     print(ref_files_date + '_dataset_ref.csv successfully saved')
     
     # create values.csv
-    values_cols = ['area_code', 'Area Name', 'indicator_dataset_id', 'Value', 'Count', 'Denominator',
+    values_cols = ['area_code', 'Area Name', 'indicator_dataset_id', 'value', 'Count', 'Denominator',
                    'value_is_null', 'Value Note']
     values = data.loc[:,values_cols]
 
