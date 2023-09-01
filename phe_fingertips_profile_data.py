@@ -5,6 +5,17 @@ profile = pd.read_json('https://fingertips.phe.org.uk/api/profiles')
 # see all names
 profile.loc[:,['Id', 'Name']]
 
+# filter for those that have data
+profile = profile[profile.loc[:,'HasAnyData']==True].reset_index(drop=True)
+
+# list all group names inside their profile names
+for profile_index in range(len(profile)):
+    name = profile.loc[:,'Name'][profile_index]
+    print(f"--------PROFILE: {name}")    
+    group = profile.GroupMetadata.to_dict()[profile_index]
+    for group_index in group:
+        print(dict(group_index)['Name'])
+
 def search_profile_names(profile, search_term:str):
     return profile.loc[profile.loc[:,'Name'].str.contains(search_term, case=False)]
 
@@ -33,3 +44,11 @@ def save_values_for_profile_id(short_profile_name:str, profile_id:int, ref_files
     
 
 save_values_for_profile_id(short_profile_name='musculoskeletal_health', profile_id=76, ref_files_date='2023-08-18')
+
+
+
+import pandas as pd
+
+a = pd.read_csv('2023-08-18_indicator_ref.csv')
+len(a)
+a.Indicator.nunique()
