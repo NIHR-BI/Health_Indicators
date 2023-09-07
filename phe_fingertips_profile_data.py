@@ -2,7 +2,7 @@ import pandas as pd
 
 profile = pd.read_json('https://fingertips.phe.org.uk/api/profiles')
 
-# (profile.rename(columns={'Id':'profile_id',
+# (profile.rename(columns={'Id':'Profile ID',
 #                          'Name': 'Profile',
 #                          'Key': 'profile_key'})
 #  .to_csv(f"2023-09-07_profile_ref.csv", index=False)
