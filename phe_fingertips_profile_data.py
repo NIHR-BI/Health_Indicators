@@ -57,7 +57,7 @@ def save_profile_indicator_combos(date_str:str, profile_ids:list):
     for profile_id in profile_ids:
         combos = pd.DataFrame()
         combos['Indicator ID'] = return_ind_ids_for_profile_id(profile_id)    
-        combos['profile_id'] = profile_id
+        combos['Profile ID'] = profile_id
         combos_concat = pd.concat([combos_concat, combos])
     file_name = f"{date_str}_profile_to_indicator.csv"
     combos_concat.to_csv(file_name, index=False)
