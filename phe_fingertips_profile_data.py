@@ -2,8 +2,16 @@ import pandas as pd
 
 profile = pd.read_json('https://fingertips.phe.org.uk/api/profiles')
 
+# (profile.rename(columns={'Id':'profile_id',
+#                          'Name': 'Profile',
+#                          'Key': 'profile_key'})
+#  .to_csv(f"2023-09-07_profile_ref.csv", index=False)
+# )
+
 # see all names
 profile.loc[:,['Id', 'Name']]
+
+profile.head()
 
 # filter for those that have data
 profile = profile[profile.loc[:,'HasAnyData']==True].reset_index(drop=True)
@@ -29,9 +37,11 @@ def return_ind_ids_for_profile_id(profile_id:int):
     ind_ids = pd.read_json('https://fingertips.phe.org.uk/api/indicator_metadata/by_profile_id?profile_id=' + str(profile_id))
     return list(ind_ids.columns)
 
+
 def return_values_for_ind_ids(all_values, ind_ids:list, ref_files_date:str):
     values = all_values.loc[all_values.loc[:,'~Indicator ID'].isin(ind_ids)]
     return values
+
 
 def save_values_for_profile_id(all_values, short_profile_name:str, profile_id:int, ref_files_date:str):
     ind_ids = return_ind_ids_for_profile_id(profile_id)
@@ -42,7 +52,22 @@ def save_values_for_profile_id(all_values, short_profile_name:str, profile_id:in
     print(f"{file_name} successfully saved")
     
 
+def save_profile_indicator_combos(date_str:str, profile_ids:list):
+    combos_concat = pd.DataFrame()
+    for profile_id in profile_ids:
+        combos = pd.DataFrame()
+        combos['Indicator ID'] = return_ind_ids_for_profile_id(profile_id)    
+        combos['profile_id'] = profile_id
+        combos_concat = pd.concat([combos_concat, combos])
+    file_name = f"{date_str}_profile_to_indicator.csv"
+    combos_concat.to_csv(file_name, index=False)
+    print(f"{file_name} has been successfully saved")
+    # return combos_concat
 
+# save_profile_indicator_combos(date_str='2023-09-07',
+#                                   profile_ids=profile.loc[:,'Id'].unique())
+
+ 
 ref_files_date='2023-08-18'
 all_values = pd.read_csv(f"{ref_files_date}_values.csv")
 
