@@ -5,6 +5,8 @@
 *.dat
 *.ods
 *.json
+*.qvd
+*.qvw
 
 # Mac folder
 .DS_Store
