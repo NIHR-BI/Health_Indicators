@@ -182,7 +182,8 @@ data
 
 (data.groupby(['indicator_dataset_id','Area Code'])
                          [cols].apply(scale))
+data.loc[:, 'Value'].dropna().groupby(['indicator_dataset_id','Area Code']).apply(lambda x: (x['Value']-x['Value'].min())/(x['Value'].max() - x['Value'].min()))
 
-data.loc[:,, 'Value']].dropna().groupby(['indicator_dataset_id','Area Code']).apply(lambda x: (x['Value']-x['Value'].min())/(x['Value'].max() - x['Value'].min()))
+
 
 data.groupby(['indicator_dataset_id','Area Code']).apply(lambda x: (x['Value'].max()-x['Value'].min()))
